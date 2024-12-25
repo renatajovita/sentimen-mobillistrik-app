@@ -4,11 +4,11 @@ from nltk.tokenize import word_tokenize
 from nltk import download
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
-# Unduh data nltk punkt (agar tidak error di Streamlit Cloud)
+# Unduh data nltk punkt
 download('punkt')
 
 # Load Model dan TF-IDF Vectorizer
-model = joblib.load('best_mode_svm.pkl')
+model = joblib.load('best_model_svm.pkl')
 vectorizer = joblib.load('tfidf_vectorizer.pkl')
 
 # Inisialisasi Stemmer
