@@ -1,11 +1,19 @@
 import streamlit as st
 import joblib
 from nltk.tokenize import word_tokenize
-from nltk import download
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+import zipfile
+import os
+import nltk
 
-# Unduh data nltk punkt
-download('punkt')
+# Ekstrak file punkt.zip jika belum diekstrak
+if not os.path.exists('nltk_data'):
+    os.makedirs('nltk_data/tokenizers', exist_ok=True)
+    with zipfile.ZipFile('punkt.zip', 'r') as zip_ref:
+        zip_ref.extractall('nltk_data/tokenizers/')
+
+# Tambahkan path nltk_data ke nltk
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
 
 # Load Model dan TF-IDF Vectorizer
 model = joblib.load('best_model_svm.pkl')
