@@ -6,10 +6,12 @@ import zipfile
 import os
 import nltk
 
-# Ekstrak file punkt.zip jika belum diekstrak
-if not os.path.exists('nltk_data'):
+# Ekstrak file punkt.zip dan punkt_tab.zip 
+if not os.path.exists('nltk_data/tokenizers/punkt'):
     os.makedirs('nltk_data/tokenizers', exist_ok=True)
-    with zipfile.ZipFile('punkt.zip', 'r') as zip_ref:
+    with zipfile.ZipFile('nltk_data/tokenizers/punkt.zip', 'r') as zip_ref:
+        zip_ref.extractall('nltk_data/tokenizers/')
+    with zipfile.ZipFile('nltk_data/tokenizers/punkt_tab.zip', 'r') as zip_ref:
         zip_ref.extractall('nltk_data/tokenizers/')
 
 # Tambahkan path nltk_data ke nltk
