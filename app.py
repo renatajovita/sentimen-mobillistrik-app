@@ -31,25 +31,59 @@ def preprocess_text(text):
     # 7. Transformasi ke bentuk fitur numerik menggunakan TF-IDF
     return vectorizer.transform([processed_text])
 
-# Streamlit App
-st.title("Analisis Sentimen Komentar Mobil Listrik")
+# Streamlit App Layout
+st.set_page_config(page_title="Analisis Sentimen Komentar Mobil Listrik", page_icon="🚗", layout="wide")
 
-# Input Teks dari Pengguna
-user_input = st.text_area("Masukkan komentar:", placeholder="Tulis komentar di sini...")
+# Header
+st.markdown(
+    """
+    <div style="background-color: #4CAF50; padding: 10px; border-radius: 10px;">
+        <h1 style="color: white; text-align: center;">Analisis Sentimen Komentar Mobil Listrik 🚗</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
-if st.button("Analisis Sentimen"):
-    if user_input.strip():  # Pastikan input tidak kosong
-        # Lakukan preprocessing pada input pengguna
-        processed_input = preprocess_text(user_input)
-        # Prediksi sentimen menggunakan model
-        prediction = model.predict(processed_input)
-        # Pemetaan label hasil prediksi ke kategori
-        sentiment_map = {0: 'Negatif', 1: 'Netral', 2: 'Positif'}
-        # Tampilkan hasil prediksi ke pengguna
-        st.write(f"Hasil Prediksi Sentimen: **{sentiment_map[prediction[0]]}**")
-    else:
-        st.error("Silakan masukkan teks untuk analisis.")
+# Kolom Layout
+col1, col2 = st.columns([3, 2])
 
-# Sidebar
-st.sidebar.title("Tentang Aplikasi")
-st.sidebar.info("Aplikasi ini menggunakan Machine Learning untuk menganalisis sentimen komentar terkait mobil listrik.")
+with col1:
+    st.subheader("Masukkan Komentar Anda")
+    user_input = st.text_area("Tulis komentar di sini...", placeholder="Contoh: Mobil listrik ini sangat inovatif dan ramah lingkungan.")
+    if st.button("Analisis Sentimen"):
+        if user_input.strip():  # Pastikan input tidak kosong
+            # Lakukan preprocessing pada input pengguna
+            processed_input = preprocess_text(user_input)
+            # Prediksi sentimen menggunakan model
+            prediction = model.predict(processed_input)
+            # Pemetaan label hasil prediksi ke kategori
+            sentiment_map = {0: 'Negatif', 1: 'Netral', 2: 'Positif'}
+            # Tampilkan hasil prediksi ke pengguna
+            st.success(f"Hasil Prediksi Sentimen: **{sentiment_map[prediction[0]]}**")
+        else:
+            st.error("Silakan masukkan komentar terlebih dahulu.")
+
+with col2:
+    st.subheader("Sentimen Kategori")
+    st.markdown(
+        """
+        <ul style="font-size: large;">
+            <li><b>Negatif:</b> Komentar dengan penilaian negatif.</li>
+            <li><b>Netral:</b> Komentar yang bersifat biasa atau tidak memihak.</li>
+            <li><b>Positif:</b> Komentar dengan penilaian positif.</li>
+        </ul>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Footer
+st.markdown(
+    """
+    <hr>
+    <div style="text-align: center;">
+        <p><b>Aplikasi ini menggunakan Machine Learning untuk menganalisis sentimen komentar terkait mobil listrik.</b></p>
+        <p>🚀 Dikembangkan untuk membantu memahami opini masyarakat tentang mobil listrik.</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
