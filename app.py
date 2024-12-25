@@ -37,8 +37,30 @@ st.set_page_config(page_title="Analisis Sentimen Komentar Mobil Listrik", page_i
 # Header
 st.markdown(
     """
-    <div style="background-color: #4CAF50; padding: 10px; border-radius: 10px;">
-        <h1 style="color: white; text-align: center;">Analisis Sentimen Komentar Mobil Listrik 🚗</h1>
+    <style>
+        .header-container {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header-title {
+            color: #333333;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .header-subtitle {
+            color: #555555;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+        }
+    </style>
+    <div class="header-container">
+        <h1 class="header-title">Analisis Sentimen Komentar Mobil Listrik 🚗</h1>
+        <p class="header-subtitle">Aplikasi ini menggunakan Machine Learning untuk menganalisis komentar terkait mobil listrik.</p>
     </div>
     """,
     unsafe_allow_html=True
@@ -50,6 +72,7 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.subheader("Masukkan Komentar Anda")
     user_input = st.text_area("Tulis komentar di sini...", placeholder="Contoh: Mobil listrik ini sangat inovatif dan ramah lingkungan.")
+    
     if st.button("Analisis Sentimen"):
         if user_input.strip():  # Pastikan input tidak kosong
             # Lakukan preprocessing pada input pengguna
@@ -57,9 +80,18 @@ with col1:
             # Prediksi sentimen menggunakan model
             prediction = model.predict(processed_input)
             # Pemetaan label hasil prediksi ke kategori
-            sentiment_map = {0: 'Negatif', 1: 'Netral', 2: 'Positif'}
-            # Tampilkan hasil prediksi ke pengguna
-            st.success(f"Hasil Prediksi Sentimen: **{sentiment_map[prediction[0]]}**")
+            sentiment_map = {0: ('Negatif', 'red'), 1: ('Netral', 'white'), 2: ('Positif', 'green')}
+            sentiment_label, sentiment_color = sentiment_map[prediction[0]]
+            
+            # Tampilkan hasil prediksi dengan warna yang sesuai
+            st.markdown(
+                f"""
+                <div style="text-align: center; font-size: 20px; font-weight: bold; color: {sentiment_color};">
+                    Hasil Prediksi Sentimen: {sentiment_label}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
         else:
             st.error("Silakan masukkan komentar terlebih dahulu.")
 
@@ -68,9 +100,9 @@ with col2:
     st.markdown(
         """
         <ul style="font-size: large;">
-            <li><b>Negatif:</b> Komentar dengan penilaian negatif.</li>
-            <li><b>Netral:</b> Komentar yang bersifat biasa atau tidak memihak.</li>
-            <li><b>Positif:</b> Komentar dengan penilaian positif.</li>
+            <li><b style="color: red;">Negatif:</b> Komentar dengan penilaian negatif.</li>
+            <li><b style="color: white;">Netral:</b> Komentar yang bersifat biasa atau tidak memihak.</li>
+            <li><b style="color: green;">Positif:</b> Komentar dengan penilaian positif.</li>
         </ul>
         """,
         unsafe_allow_html=True
@@ -80,9 +112,8 @@ with col2:
 st.markdown(
     """
     <hr>
-    <div style="text-align: center;">
-        <p><b>Aplikasi ini menggunakan Machine Learning untuk menganalisis sentimen komentar terkait mobil listrik.</b></p>
-        <p>🚀 Dikembangkan untuk membantu memahami opini masyarakat tentang mobil listrik.</p>
+    <div style="text-align: center; font-size: 14px; color: #888;">
+        🚀 Dikembangkan untuk membantu memahami opini masyarakat tentang mobil listrik.
     </div>
     """,
     unsafe_allow_html=True
