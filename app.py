@@ -4,7 +4,7 @@ from nltk.tokenize import word_tokenize
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 # Load Model dan Vectorizer
-model = joblib.load('./models/best_mode_svm.pkl')
+model = joblib.load('./model/best_mode_svm.pkl')
 vectorizer = joblib.load('./models/tfidf_vectorizer.pkl')
 
 # Inisialisasi Stemmer
