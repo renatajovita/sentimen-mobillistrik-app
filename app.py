@@ -39,21 +39,20 @@ st.markdown(
     """
     <style>
         .header-container {
-            background-color: #f5f5f5;
+            background-color: #333333;
             padding: 15px;
             border-radius: 10px;
+            text-align: center;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .header-title {
-            color: #333333;
-            text-align: center;
+            color: white;
             font-family: 'Arial', sans-serif;
             font-size: 28px;
             font-weight: bold;
         }
         .header-subtitle {
-            color: #555555;
-            text-align: center;
+            color: #bbbbbb;
             font-family: 'Arial', sans-serif;
             font-size: 16px;
         }
@@ -80,13 +79,14 @@ with col1:
             # Prediksi sentimen menggunakan model
             prediction = model.predict(processed_input)
             # Pemetaan label hasil prediksi ke kategori
-            sentiment_map = {0: ('Negatif', 'red'), 1: ('Netral', 'white'), 2: ('Positif', 'green')}
-            sentiment_label, sentiment_color = sentiment_map[prediction[0]]
+            sentiment_map = {0: ('Negatif', '#ffcccc', 'red'), 1: ('Netral', '#f0f0f0', 'black'), 2: ('Positif', '#ccffcc', 'green')}
+            sentiment_label, sentiment_bg, sentiment_color = sentiment_map[prediction[0]]
             
             # Tampilkan hasil prediksi dengan warna yang sesuai
             st.markdown(
                 f"""
-                <div style="text-align: center; font-size: 20px; font-weight: bold; color: {sentiment_color};">
+                <div style="background-color: {sentiment_bg}; color: {sentiment_color}; 
+                            padding: 15px; border-radius: 10px; text-align: center; font-size: 20px; font-weight: bold;">
                     Hasil Prediksi Sentimen: {sentiment_label}
                 </div>
                 """,
@@ -101,7 +101,7 @@ with col2:
         """
         <ul style="font-size: large;">
             <li><b style="color: red;">Negatif:</b> Komentar dengan penilaian negatif.</li>
-            <li><b style="color: white;">Netral:</b> Komentar yang bersifat biasa atau tidak memihak.</li>
+            <li><b style="color: black;">Netral:</b> Komentar yang bersifat biasa atau tidak memihak.</li>
             <li><b style="color: green;">Positif:</b> Komentar dengan penilaian positif.</li>
         </ul>
         """,
