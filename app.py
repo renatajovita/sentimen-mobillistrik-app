@@ -46,7 +46,7 @@ st.markdown(
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
         .header-title {
-            color: white;
+            color: #ffffff;
             font-family: 'Arial', sans-serif;
             font-size: 28px;
             font-weight: bold;
