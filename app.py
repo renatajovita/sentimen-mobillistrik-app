@@ -32,7 +32,7 @@ def preprocess_text(text):
     return vectorizer.transform([processed_text])
 
 # Streamlit App Layout
-st.set_page_config(page_title="Analisis Sentimen Komentar Mobil Listrik", page_icon="🚗", layout="wide")
+st.set_page_config(page_title="Analisis Sentimen Komentar Mobil Listrik", layout="wide")
 
 # Header
 st.markdown(
@@ -58,7 +58,7 @@ st.markdown(
         }
     </style>
     <div class="header-container">
-        <h1 class="header-title">Analisis Sentimen Komentar Mobil Listrik 🚗</h1>
+        <h1 class="header-title">Analisis Sentimen Komentar Mobil Listrik</h1>
         <p class="header-subtitle">Aplikasi ini menggunakan Machine Learning untuk menganalisis komentar terkait mobil listrik.</p>
     </div>
     """,
