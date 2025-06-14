@@ -20,15 +20,15 @@ def preprocess_text(text):
     text = text.lower()
     # 2. Remove special characters (hanya huruf dan spasi yang disimpan)
     text = re.sub(r'[^a-z\s]', '', text)
-    # 3. Tokenize (pecah teks menjadi kata-kata)
-    tokens = word_tokenize(text)
+    # 3. Tokenize (pakai split biasa karena kita hanya butuh pisah kata)
+    tokens = text.split()
     # 4. Remove stopwords
     filtered_tokens = [stopword_remover.remove(token) for token in tokens]
-    # 5. Stemming (mengubah kata ke bentuk dasar)
+    # 5. Stemming
     stemmed_tokens = [stemmer.stem(token) for token in filtered_tokens]
-    # 6. Gabungkan kembali token menjadi string
+    # 6. Gabungkan kembali token
     processed_text = ' '.join(stemmed_tokens)
-    # 7. Transformasi ke bentuk fitur numerik menggunakan TF-IDF
+    # 7. Vectorization
     return vectorizer.transform([processed_text])
 
 # Streamlit App Layout
